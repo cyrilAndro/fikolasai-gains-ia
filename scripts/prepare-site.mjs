@@ -27,6 +27,10 @@ const metadata = `
 <meta name="twitter:image" content="https://fikolasai.com/assets/photo-cyril.png"/>
 <script type="application/ld+json">${JSON.stringify({ '@context': 'https://schema.org', '@type': 'WebApplication', name: 'Calculateur de gains IA FikolasAI', url: 'https://fikolasai.com/calculateur-ia/', description, applicationCategory: 'BusinessApplication', operatingSystem: 'Any', inLanguage: ['fr', 'en'], isAccessibleForFree: true, publisher: { '@type': 'Organization', name: 'FikolasAI', url: 'https://fikolasai.com/' } })}</script>
 `;
+// Public Web Analytics site token, verified against Cloudflare's Manage site snippet.
+// Only the main-site build includes this beacon. Calculator inputs are never passed to it.
+const cloudflareBeacon = `<!-- Cloudflare Web Analytics --><script type="module" src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token":"1e20c4110b9447e7ac616a3e47664a05"}'></script><!-- End Cloudflare Web Analytics -->`;
 html = html.replace('</head>', metadata + '</head>').replace('<div id="root"></div>', '<div id="root"></div><noscript><main><h1>Calculateur de gains IA FikolasAI</h1><p>Activez JavaScript pour estimer le temps récupérable et sa valeur, à partir d’une tâche répétitive, du nombre de personnes et du coût horaire.</p><p>La valeur estimée n’est pas une économie de trésorerie garantie.</p><a href="https://fikolasai.com/">Retour au site FikolasAI</a></main></noscript>');
+html = html.replace('</body>', cloudflareBeacon + '</body>');
 await writeFile(path, html);
 log('Page prête à publier dans calculateur-ia/ du site FikolasAI.');
