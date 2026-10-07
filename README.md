@@ -62,3 +62,12 @@ Publication : voir [DEPLOIEMENT.md](docs/DEPLOIEMENT.md). Dépôt indépendant :
 Le taux de 50 % s’appelle « Potentiel élevé ». Chaque choix affiche une explication adaptée. Le résultat présente un badge d’estimation, les données utilisées, la formule et la distinction entre valeur du temps et trésorerie. Les références sont repliées par défaut et configurables. Le CTA propose de vérifier le potentiel sur les processus réels. Les formules sont inchangées.
 
 [Capture des explications et sources](docs/images/reassurance.jpg).
+
+## Français / English
+
+Site : https://cyrilandro.github.io/fikolasai-gains-ia/
+Liens directs : [Français](https://cyrilandro.github.io/fikolasai-gains-ia/?lang=fr) · [English](https://cyrilandro.github.io/fikolasai-gains-ia/?lang=en).
+
+Le sélecteur FR / EN conserve la simulation en cours. Priorité : langue du lien, préférence enregistrée, puis langue du navigateur (anglais si en*, français sinon). Seule la préférence de langue est enregistrée sous `fikolasai:language` ; les réponses restent en mémoire. La devise reste l’euro. Les nombres, erreurs, explications, sources et sujet du contact sont traduits. Textes anglais : `src/config/language.ts`.
+
+Vérification du 7 octobre 2026 : 33 tests unitaires et 14 parcours navigateur réussis ; build et lint réussis. Tests supplémentaires : changement de langue, conservation des saisies, priorité du lien, préférence, détection anglaise et absence de débordement FR/EN à 360 et 390 px.

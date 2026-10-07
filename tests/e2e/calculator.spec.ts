@@ -53,6 +53,8 @@ test('erreurs locales, virgules, petits montants et grandes valeurs', async ({ p
 test('navigation au clavier et sélection native des hypothèses', async ({ page }) => {
   await page.goto('./');
   await page.keyboard.press('Tab'); await expect(page.getByRole('link', { name: 'FikolasAI, accueil' })).toBeFocused();
+  await page.keyboard.press('Tab'); await expect(page.getByRole('button', { name: 'Français', exact: true })).toBeFocused();
+  await page.keyboard.press('Tab'); await expect(page.getByRole('button', { name: 'English', exact: true })).toBeFocused();
   await page.keyboard.press('Tab'); await expect(page.getByLabel('Quelle tâche répétitive voulez-vous améliorer ?')).toBeFocused();
   await page.keyboard.press('Tab'); await expect(page.getByRole('button', { name: 'Emails', exact: true })).toBeFocused();
   await page.keyboard.press('Enter'); await expect(page.getByLabel('Quelle tâche répétitive voulez-vous améliorer ?')).toHaveValue('Emails');
@@ -116,4 +118,49 @@ test('réassurance cohérente avec la saisie et sources accessibles à la demand
   await page.getByLabel('Quel temps par personne ?').fill('');
   await expect(summary).toHaveCount(0);
   await expect(page.locator('.capacity-note')).toHaveCount(0);
+});
+
+test('anglais complet, changement sans perte, préférence et lien partageable', async ({ page }) => {
+  await page.goto('./'); await example(page);
+  await page.getByRole('button', { name: 'English', exact: true }).click();
+  await expect(page.locator('html')).toHaveAttribute('lang', 'en');
+  await expect(page.getByLabel('Which repetitive task would you like to improve?')).toHaveValue('Comptes rendus de réunion');
+  await expect(page.getByTestId('monthly')).toHaveText('€909');
+  await expect(page.getByTestId('annual')).toHaveText('€10,912');
+  await expect(page.locator('.capacity-note')).toContainText('€909 in cash savings');
+  await expect(page.getByRole('group', { name: 'Inputs used' })).toContainText('2 h/week per person');
+  await expect(page.getByRole('link', { name: 'Explore my AI opportunities' })).toHaveAttribute('href', /subject=Explore/);
+  await page.getByLabel('How much time per person?').fill('169');
+  await page.getByLabel('How much time per person?').press('Tab');
+  await expect(page.getByText('Maximum: 168 hours per week.')).toBeVisible();
+  await page.getByRole('button', { name: 'Français', exact: true }).click();
+  await expect(page.getByText('Maximum : 168 heures par semaine.')).toBeVisible();
+  await page.goto('./?lang=en');
+  await expect(page.locator('html')).toHaveAttribute('lang', 'en');
+  await page.getByRole('button', { name: 'English', exact: true }).click();
+  await page.goto('./');
+  await expect(page.locator('html')).toHaveAttribute('lang', 'en');
+  await page.getByRole('button', { name: 'Start another simulation' }).click();
+  await expect(page.locator('html')).toHaveAttribute('lang', 'en');
+});
+
+for (const lang of ['fr', 'en']) for (const width of [360, 390]) {
+  test(`bilingue ${lang} ${width}px`, async ({ page }) => {
+    await page.setViewportSize({ width, height: 900 });
+    await page.goto(`./?lang=${lang}`);
+    await page.locator('.fields input').nth(1).fill('2');
+    await page.locator('summary').click();
+    expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
+    await page.screenshot({ path: `docs/images/bilingual-${lang}-${width}.png`, fullPage: true });
+  });
+}
+test.describe('langue du navigateur', () => {
+  test.use({ locale: 'en-US' });
+  test('anglais automatique et priorité au lien français', async ({ page }) => {
+    await page.goto('./');
+    await expect(page.locator('html')).toHaveAttribute('lang', 'en');
+    await expect(page.getByRole('heading', { level: 1 })).toContainText('get back with AI?');
+    await page.goto('./?lang=fr');
+    await expect(page.locator('html')).toHaveAttribute('lang', 'fr');
+  });
 });

@@ -563,3 +563,10 @@ footer>span {
 @media(max-width: 760px) {
   .gain-options span { height: 100%; }
 }
+.header-tools { display: flex; align-items: center; gap: 20px; }
+.header-tools > span { font-size: .8rem; color: #526762; }
+.language-switch { display: flex; gap: 4px; }
+.language-switch button { min-width: 44px; min-height: 44px; border: 1px solid #b8cdbf; border-radius: 7px; background: transparent; font-size: .8rem; font-weight: 650; }
+.language-switch button[aria-pressed=true] { color: #fff; background: #075e56; border-color: #075e56; }
+.language-switch button:hover { background: #e3eee7; color: #075e56; }
+@media(max-width: 600px) { .header-tools > span { display: none; } }
