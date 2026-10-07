@@ -54,7 +54,7 @@ export default function App() {
       <section className="calculator" aria-label={t("Votre simulation")}>
         <p className="control-note">{t("Ajustez les valeurs pour refléter votre situation réelle.")}</p>
         <div className="task-field"><label htmlFor="task">{t("Quelle tâche répétitive voulez-vous améliorer ?")}</label>
-          <input ref={taskInput} id="task" maxLength={120} value={task} onChange={e => setTask(e.target.value)} placeholder={t("Ex. : rédaction d’emails, comptes rendus…")} aria-describedby="task-help"/>
+          <input ref={taskInput} id="task" data-clarity-mask="true" maxLength={120} value={task} onChange={e => setTask(e.target.value)} placeholder={t("Ex. : rédaction d’emails, comptes rendus…")} aria-describedby="task-help"/>
           <span id="task-help" className="sr-only">{t("Le nom est facultatif et ne modifie pas le calcul.")}</span>
           <div className="suggestions" aria-label={t("Suggestions de tâches")}>{TASK_SUGGESTIONS.map(suggestion => <button type="button" key={suggestion} aria-pressed={task === t(suggestion)} onClick={() => setTask(t(suggestion))}>{t(suggestion)}</button>)}</div>
         </div>
@@ -71,7 +71,7 @@ export default function App() {
       </section>
       <section className={`results ${result ? 'ready' : ''}`} aria-labelledby="result-title">
         <div className="result-heading"><h2 id="result-title">{t("Votre potentiel estimé")}</h2><span className="estimate-badge">{t("Estimation indicative")}</span></div>
-        <div aria-live="polite" aria-atomic="true">
+        <div aria-live="polite" aria-atomic="true" data-clarity-mask="true">
           {result ? <>
             <div className="metrics"><div><strong data-testid="hours">{estimate(result.monthlyHoursSaved, 'h')}</strong><span>{t("potentiellement récupérées / mois")}</span></div><div><strong data-testid="monthly">{estimate(result.monthlyValueSaved, '€')}</strong><span>{t("de valeur de temps potentiellement récupérée / mois")}</span></div></div>
             <p className="annual">{t("Soit ")}<strong data-testid="annual">{estimate(result.annualValueSaved, '€')}</strong>{t(" de temps de travail valorisé par an.")}</p>

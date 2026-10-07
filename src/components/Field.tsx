@@ -8,7 +8,7 @@ export function Field({ label, value, onChange, error, hint, unit, placeholder, 
   const displayedError = touched ? error : undefined;
   return <div className="field">
     <label htmlFor={id}>{label}</label>
-    <div className="input-wrap"><input id={id} type="text" inputMode={integer ? 'numeric' : 'decimal'} maxLength={16}
+    <div className="input-wrap"><input id={id} type="text" data-clarity-mask="true" inputMode={integer ? 'numeric' : 'decimal'} maxLength={16}
       value={value} placeholder={placeholder} onBlur={() => setTouched(true)} onChange={e => onChange(e.target.value)}
       aria-invalid={!!displayedError} aria-describedby={`${id}-help ${id}-unit`}/>
       <span id={`${id}-unit`}>{unit}</span></div>

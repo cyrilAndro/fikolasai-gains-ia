@@ -10,6 +10,8 @@ test('simulation immédiate, hypothèses, reset, contact et données héritées'
   page.on('console', message => { if (['error', 'warning'].includes(message.type())) errors.push(message.text()); });
   await page.addInitScript(() => localStorage.setItem('fikolasai:gains-ia:draft:v1', 'legacy-preserved'));
   await page.goto('./'); await example(page);
+  expect(await page.locator('.calculator input:not([type="radio"])').evaluateAll(inputs => inputs.length === 4 && inputs.every(input => input.getAttribute('data-clarity-mask') === 'true'))).toBe(true);
+  await expect(page.getByTestId('hours').locator('xpath=ancestor::div[@aria-live]')).toHaveAttribute('data-clarity-mask', 'true');
   await expect(page.getByTestId('hours')).toHaveText('26 h');
   await expect(page.getByTestId('monthly')).toHaveText('909 €');
   await expect(page.getByTestId('annual')).toHaveText('10 912 €');

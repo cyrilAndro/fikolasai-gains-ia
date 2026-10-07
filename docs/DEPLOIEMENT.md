@@ -26,6 +26,14 @@ Les accueils français et anglais proposent un lien dans la navigation desktop e
 
 ### Cloudflare Web Analytics
 
-Le build destiné au site principal inclut le script officiel Cloudflare, avec le même token public que le site fikolasai.com (configuration « JS Snippet installation »). Les visites de `/calculateur-ia/` sont ainsi rattachées aux statistiques existantes. Les nombres, le nom de tâche et les résultats du calculateur ne sont pas transmis au script. Ce suivi mesure les visites et performances de page ; il ne mesure pas les simulations terminées. Le build indépendant GitHub Pages reste sans fournisseur analytics.
+Le build destiné au site principal inclut le chargeur partagé `/analytics.js`, qui ajoute une seule instance du script officiel Cloudflare avec le même token public que le site fikolasai.com (configuration « JS Snippet installation »). Les visites de `/calculateur-ia/` sont ainsi rattachées aux statistiques existantes. Les nombres, le nom de tâche et les résultats du calculateur ne sont pas transmis à Cloudflare. Ce suivi mesure les visites et performances de page ; il ne mesure pas les simulations terminées. Le build indépendant GitHub Pages reste sans fournisseur analytics.
 
 Pour retrouver la page : Cloudflare → Web Analytics → fikolasai.com → Page views → Paths → `/calculateur-ia/`. Les données peuvent prendre quelques minutes à apparaître ; les visites de test doivent être distinguées des visites de prospects.
+
+### Clarity — diagnostic et correction du 7 octobre 2026
+
+Le projet `xtet4qw9zj` recevait déjà une session sur l’accueil aujourd’hui. Le signal explicite de consentement était toutefois absent du chargeur partagé du site, et le calculateur ne chargeait pas Clarity.
+
+Le chargeur partagé du site appelle désormais `consentv2` avec `analytics_Storage: granted` et `ad_Storage: denied` après accord, et transmet le refus lors d’un retrait. Le bandeau nomme Google Analytics et Microsoft Clarity. Le calculateur utilise le même chargeur et le même choix de consentement ; les champs et résultats dynamiques portent `data-clarity-mask="true"`. Les aperçus locaux ne chargent aucun fournisseur de statistiques. L’accueil français et anglais utilisent une nouvelle version de l’URL du script pour éviter son ancien cache.
+
+Vérifications : 5 scénarios isolés de consentement (accord/retrait/nouvel accord sans doublon, refus, accord mémorisé, anglais, aperçu local), 33 tests métier, build et lint. Les visites sans accord ne chargent pas Clarity. Les comptages Clarity et Cloudflare peuvent donc différer ; Clarity peut également prendre quelques heures à actualiser son tableau de bord.
