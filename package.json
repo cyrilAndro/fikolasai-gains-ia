@@ -13,6 +13,7 @@
     "test": "vitest run",
     "test:e2e": "playwright test",
     "build": "tsc --noEmit && vite build",
+    "build:site": "tsc --noEmit && node scripts/prepare-site.mjs",
     "preview": "vite preview --host 127.0.0.1"
   },
   "dependencies": {

@@ -55,7 +55,7 @@ Résultat du 6 octobre 2026 : **33 tests unitaires et 8 tests navigateur réussi
 
 Captures : [avant](docs/images/avant-refonte.jpg), [après desktop](docs/images/simple-1440.png), [375 px](docs/images/simple-375.png), [430 px](docs/images/simple-430.png), [768 px](docs/images/simple-768.png).
 
-Publication : voir [DEPLOIEMENT.md](docs/DEPLOIEMENT.md). Dépôt indépendant : https://github.com/cyrilAndro/fikolasai-gains-ia. Le workflow GitHub Actions publie sur GitHub Pages après les contrôles. Le projet « Site FikolasAI » est distinct et ne doit pas être modifié.
+Publication : voir [DEPLOIEMENT.md](docs/DEPLOIEMENT.md). Dépôt indépendant : https://github.com/cyrilAndro/fikolasai-gains-ia. Le workflow GitHub Actions publie sur GitHub Pages après les contrôles. Le code source du calculateur reste dans ce dépôt distinct. L’intégration au site principal a été demandée explicitement le 7 octobre 2026.
 
 ## Réassurance utilisateur
 
@@ -64,6 +64,8 @@ Le taux de 50 % s’appelle « Potentiel élevé ». Chaque choix affiche une ex
 [Capture des explications et sources](docs/images/reassurance.jpg).
 
 ## Français / English
+
+Page sur le site principal : https://fikolasai.com/calculateur-ia/ (FR/EN). `npm run build:site` prépare une page native avec ses ressources locales et ses métadonnées de partage.
 
 Site : https://cyrilandro.github.io/fikolasai-gains-ia/
 Liens directs : [Français](https://cyrilandro.github.io/fikolasai-gains-ia/?lang=fr) · [English](https://cyrilandro.github.io/fikolasai-gains-ia/?lang=en).

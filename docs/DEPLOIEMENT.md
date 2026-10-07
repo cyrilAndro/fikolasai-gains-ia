@@ -12,3 +12,14 @@ Adresse attendue une fois le déploiement réussi : https://cyrilandro.github.io
 
 Pour travailler localement : Node 24.19, `npm ci`, puis `npm run dev`.
 Pour publier les évolutions : committer et pousser vers ce dépôt uniquement. Ne pas ajouter de CNAME vers fikolasai.com.
+
+## Intégration au site principal — 7 octobre 2026
+
+L’utilisateur a demandé explicitement une nouvelle page sur son site principal après la création du dépôt indépendant.
+
+Adresse destinée à la prospection : https://fikolasai.com/calculateur-ia/
+Version anglaise : https://fikolasai.com/calculateur-ia/?lang=en
+
+`npm run build:site` construit la page native dans `.tools/site-integration/calculateur-ia/`, avec ses ressources locales, ses métadonnées de partage et sa référence canonique. Publier uniquement ce dossier dans `cyrilAndro/fikolasai.github.io`, sans modifier son CNAME. Le code source et les formules restent maintenus dans le présent dépôt.
+
+Les accueils français et anglais proposent un lien dans la navigation desktop et sous l’action principale (accessible sur mobile). Le sitemap inclut cette page. Pour une nouvelle version, vérifier les parcours avec `E2E_BASE_PATH=/calculateur-ia/` sur un aperçu servant le dossier d’intégration.
